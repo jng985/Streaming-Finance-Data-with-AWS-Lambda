@@ -61,12 +61,10 @@ def lambda_handler(event, context):
 - `query.sql`
 
 ```sql
-SELECT upper(name) AS Name, round(high,2) AS High, ts AS Timestamp, hour AS Hour
-FROM(
-  select db.*, SUBSTRING(ts, 12, 2) AS Hour, ROW_NUMBER() OVER(PARTITION BY name, SUBSTRING(ts, 12, 2) ORDER BY high) AS rn
-  FROM "23" db
-  WHERE ts between '2020-05-14 09:30:00' AND '2020-05-14 16:00:00'
-) db1 WHERE rn=1 ORDER BY name, ts
+SELECT * FROM (SELECT A.name, A.hour, A.ts, B.max_high FROM (SELECT name, high, ts, SUBSTRING(ts, 12, 2) AS hour  FROM "23" db) A
+INNER JOIN (SELECT name, SUBSTRING(ts, 12, 2) AS hour, MAX(high) AS max_high FROM "23" GROUP BY name, SUBSTRING(ts, 12, 2)) B
+ON A.name = B.name AND A.hour = B.hour AND A.high = B.max_high)
+ORDER BY name, hour
 ```
 
 - `results.csv`
