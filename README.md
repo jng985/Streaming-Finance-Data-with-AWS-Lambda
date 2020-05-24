@@ -6,6 +6,8 @@
 
 ### Lambda Function Source Code
 
+- API endpoint: https://1253iy35aa.execute-api.us-east-1.amazonaws.com/default/finance-stream-collector
+
 - `data_collector.py`
 
 ```
