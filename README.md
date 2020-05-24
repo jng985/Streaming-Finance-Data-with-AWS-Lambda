@@ -10,7 +10,7 @@
 
 - `data_collector.py`
 
-```
+```py
 import json
 import boto3
 import os
@@ -60,7 +60,7 @@ def lambda_handler(event, context):
 
 - `query.sql`
 
-```
+```sql
 SELECT upper(name) AS Name, round(high,2) AS High, ts AS Timestamp, hour AS Hour
 FROM(
   select db.*, SUBSTRING(ts, 12, 2) AS Hour, ROW_NUMBER() OVER(PARTITION BY name, SUBSTRING(ts, 12, 2) ORDER BY high) AS rn
