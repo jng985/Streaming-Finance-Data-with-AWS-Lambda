@@ -45,6 +45,8 @@ def lambda_handler(event, context):
     }
 ```
 
+![](assets/lambda.png)
+
 ## DataTransformer
 
 ### AWS Kinesis Firehose Delivery Stream 
